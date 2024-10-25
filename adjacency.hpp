@@ -17,6 +17,8 @@ class Adjacency {
     Adjacency();  // default constructor
     void initializeArray(std::ifstream* ifstream); // initializes matrix
     double returnTravelTime(int fromCity, int toCity); // returns travel time of the specified cities
+    void printAll();
+    ~Adjacency();
 };
 
 #endif

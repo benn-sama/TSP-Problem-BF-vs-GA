@@ -1,56 +1,59 @@
 #include "adjacency.hpp"
+#include <stdexcept>
 
-// default contructor
 Adjacency::Adjacency() {
-  this->matrix = new double*[ROWS];
-
-  for (int i = 0; i < ROWS; ++i) {
-    matrix[i] = new double[COLUMNS];
-  }
+      matrix = new double*[ROWS];
+      for (int i = 0; i < ROWS; ++i) {
+          matrix[i] = new double[COLUMNS];
+          // Initialize all elements to infinity or a sentinel value
+          for (int j = 0; j < COLUMNS; ++j) {
+              matrix[i][j] = 0.0;
+          }
+      }
 }
 
-// initializes matrix
 void Adjacency::initializeArray(std::ifstream* fileStream) {
-  double weight;
-  std::string line;
-  int i = 0;
-  int j = 0;
-  int maxColumn = 0;
-  
-  // checks if file successfully opened
-  if (!fileStream->is_open()){
-    exit(1);
-  }
-
-  // extracts weights from the data and inserts into the adjacency matrix
-  // complexity: logn because half of the matrix is identical
-  while (getline(*fileStream, line)) {
-    std::istringstream token(line);
-    double value = 0.0;
-
-    token >> value;
+    std::string line;
     
-    // checks if the city is inserting a weight in itself
-    // if true, goes to the next row and insert weights into the next columns
-    if (j == maxColumn) {
-      matrix[i][j] = 0.0;
-      j = 0;
-      ++i;
-      ++maxColumn;
+    // Read upper triangular part of the matrix
+    for (int i = 0; i < ROWS - 1; ++i) {
+        for (int j = i + 1; j < COLUMNS; ++j) {
+            if (!std::getline(*fileStream, line)) {
+                throw std::runtime_error("Incomplete matrix data in file");
+            }
+            
+            std::istringstream iss(line);
+            double value;
+            if (!(iss >> value)) {
+                throw std::runtime_error("Invalid number format in file");
+            }
+            
+            // Set both symmetric positions
+            matrix[i][j] = value;
+            matrix[j][i] = value;
+        }
     }
-
-    // inserts weights into their respective indexes
-    // also inserts the mirrored version
-    matrix[i][j] = value;
-    matrix[j][i] = value;
-    ++j;
-  }
 }
 
 double Adjacency::returnTravelTime(int fromCity, int toCity) {
-  if (fromCity == toCity) {
-    return 0.0;
-  }
+    if (fromCity < 0 || fromCity >= ROWS || toCity < 0 || toCity >= COLUMNS) {
+    }
+    
+    return matrix[fromCity][toCity];
+}
 
-  return matrix[fromCity][toCity];
+void Adjacency::printAll() {
+  for (int i = 0; i < this->ROWS; ++i) {
+    for (int j = 0; j < this->COLUMNS; ++j) {
+      std::cout << "[" << i << "]" << "[" << j << "]" << " = " << this->matrix[i][j] << std::endl;
+    }
+  }
+}
+
+// Destructor for memory cleanup
+Adjacency::~Adjacency() {
+  for (int i = 0; i < ROWS; ++i) {
+    delete[] matrix[i];
+  }
+  delete[] matrix;
 }
