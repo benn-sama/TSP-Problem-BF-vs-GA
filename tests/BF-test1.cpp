@@ -18,7 +18,7 @@ void testBF() {
 
   matrix.initializeArray(&fileStream);
 
-  shortestPath = bruteForce.getShortestPath(matrix, 10, running);
+  shortestPath = bruteForce.getShortestPath(matrix, 18, running);
 
   timerThread.join();
 

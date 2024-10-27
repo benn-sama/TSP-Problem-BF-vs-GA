@@ -2,20 +2,21 @@
 
 BF::BF() {}
 
+// finds shortest path
 std::string BF::getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>& running) {
-    // initialize path with cities in order: 1,2,3,...,cities
+    // initialize path with cities in orders
     path.clear();
-    for(int i = 1; i <= cities; i++) {
+    for (int i = 1; i <= cities; ++i) {
         path.push_back(i);
     }
     
     minPath = std::numeric_limits<double>::max();
     totalTimeTraveled = 0.0;
     
-    while(running) {
+    while (running) {
         // find position m where path[m] < path[m+1]
         int m = cities - 2;
-        while(m >= 0 && path[m] > path[m + 1]) {
+        while (m >= 0 && path[m] > path[m + 1]) {
             --m;
         }
         
@@ -26,7 +27,7 @@ std::string BF::getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>
         
         // find position k where path[k] > path[m]
         int k = cities - 1;
-        while(path[m] > path[k]) {
+        while (path[m] > path[k]) {
             --k;
         }
         
@@ -50,7 +51,7 @@ std::string BF::getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>
         currentTime += matrix.returnTravelTime(path[cities-  1] - 1, path[0] - 1); // Return to start
         
         // update if this is the shortest path found
-        if(currentTime < minPath) {
+        if (currentTime < minPath) {
             minPath = currentTime;
             totalTimeTraveled = currentTime;
         }
@@ -67,6 +68,7 @@ std::string BF::getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>
     return result;
 }
 
+// elapsed time
 void BF::timer(std::atomic<bool>& running, std::atomic<bool>& timeout) {
   auto start = std::chrono::high_resolution_clock::now();
 
@@ -89,4 +91,8 @@ void BF::timer(std::atomic<bool>& running, std::atomic<bool>& timeout) {
   std:: chrono::duration<double> totalElapsed = end - start;
 
   std::cout << "\33[2k\rTotal Execution Time: " << totalElapsed.count() << " seconds" << std::endl;
+}
+
+double BF::getMinPath() {
+    return this->minPath;
 }

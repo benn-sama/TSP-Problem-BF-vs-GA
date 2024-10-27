@@ -7,7 +7,6 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <iostream>
 #include <atomic>
 #include <iomanip>
 
@@ -18,11 +17,12 @@ class BF {
   private:
     double minPath;
     double totalTimeTraveled = 0.0;
-    std::vector<int> path;
+    std::vector<int> path; // keeps track of path
   public:
     BF(); // default constructor
     std::string getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>& running); // returns shortest path
     void timer(std::atomic<bool>& running, std::atomic<bool>& timeout);
+    double getMinPath(); // returns OPT
 };
 
 #endif
