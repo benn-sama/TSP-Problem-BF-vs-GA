@@ -1,7 +1,7 @@
-HEADERS = adjacency.hpp BF.hpp
-TEST_SOURCES = ./tests/adjacency-test1.cpp ./tests/BF-test1.cpp
+HEADERS = adjacency.hpp BF.hpp GA.hpp
+TEST_SOURCES = ./tests/adjacency-test1.cpp ./tests/BF-test1.cpp ./tests/GA-test1.cpp
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
-MAIN_OBJECTS = adjacency.o BF.o
+MAIN_OBJECTS = adjacency.o BF.o GA.o
 TEST_TARGETS = $(TEST_SOURCES:.cpp=.out)
 MAIN_TARGET = main_executable
 
@@ -12,7 +12,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -I.
 
 all: $(TEST_TARGETS) $(MAIN_TARGET)
 
-$(TEST_TARGETS): %.out: %.o adjacency.o BF.o
+$(TEST_TARGETS): %.out: %.o adjacency.o BF.o GA.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(MAIN_TARGET): $(MAIN_OBJECTS)

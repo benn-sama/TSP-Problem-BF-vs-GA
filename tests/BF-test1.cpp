@@ -13,14 +13,18 @@ void testBF() {
   std::atomic<bool> timeout(false);
   std::string shortestPath;
 
+  std::cout << "Starting BF Tests" << std::endl << std::endl;
   // Capture running and timeout in the lambda
+    std::cout << "here";
   std::thread timerThread([&bruteForce, &running, &timeout]() { bruteForce.timer(running, timeout); });
 
   matrix.initializeArray(&fileStream);
 
-  shortestPath = bruteForce.getShortestPath(matrix, 18, running);
+  shortestPath = bruteForce.getShortestPath(matrix, 10, running);
 
   timerThread.join();
+
+
 
   std::cout << "Shortest path: " << shortestPath << std::endl;
 }

@@ -25,12 +25,14 @@ class GA {
 
   public:
     GA(int initialTours, int generations, int mutationPercentage, int cities); // paramaterized constructor
-    std::string getShortestPath(Adjacency& matrix); // returns shortest path
+    std::string getShortestPath(Adjacency& matrix, std::atomic<bool>& running); // returns shortest path
     void initializeTours(); // inserts tours
     std::vector<int> generateTour(); // generates a single tour
-    double GA::tourDistance(Adjacency& matrix);
+    double tourDistance(Adjacency& matrix);
+    void evaluateTours(Adjacency& matrix);
     void mutate(); // mutates a certain amount of tours
     void timer(std::atomic<bool>& running); // elapsed time
+    double getTimeTraveled();
 };
 
 #endif
