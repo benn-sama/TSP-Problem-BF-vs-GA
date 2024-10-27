@@ -43,6 +43,7 @@ void Adjacency::initializeArray(std::ifstream* fileStream) {
 double Adjacency::returnTravelTime(int fromCity, int toCity) {
     // also checks out of bounds
     if (fromCity < 0 || fromCity >= ROWS || toCity < 0 || toCity >= COLUMNS) {
+      return 0.0;
     }
     
     return matrix[fromCity][toCity];
@@ -57,7 +58,17 @@ void Adjacency::printAll() {
   }
 }
 
-// Destructor for memory cleanup
+// returns row count
+int Adjacency::getRows() {
+  return this->ROWS;
+}
+
+// returns column count
+int Adjacency::getColumns() {
+  return this->COLUMNS;
+}
+
+// destructor for memory cleanup
 Adjacency::~Adjacency() {
   for (int i = 0; i < ROWS; ++i) {
     delete[] matrix[i];
