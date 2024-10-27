@@ -1,5 +1,6 @@
 #include "GA.hpp"
 
+// constructor to initial variables
 GA::GA(int initialTours, int generations, int mutationPercentage, int cities) {
     this->initialTours = initialTours;
     this->generations = generations;
@@ -15,6 +16,7 @@ GA::GA(int initialTours, int generations, int mutationPercentage, int cities) {
     this->rng = std::mt19937(rd());
 }
 
+// initialize tours with cities
 void GA::initializeTours() {
     tours.clear();
     tours.reserve(initialTours);
@@ -25,16 +27,19 @@ void GA::initializeTours() {
     }
 }
 
+// generates a tour
 std::vector<int> GA::generateTour() {
     std::vector<int> tour(cities);
     for (int i = 0; i < cities; ++i) {
         tour[i] = i;
     }
+
     // keep first city fixed, then shuffle rest
     std::shuffle(tour.begin() + 1, tour.end(), rng);
     return tour;
 }
 
+// distance of a tour
 double GA::tourDistance(Adjacency& matrix) {
     double distance = 0.0;
     
@@ -47,11 +52,13 @@ double GA::tourDistance(Adjacency& matrix) {
     return distance;
 }
 
+// evalutates tour and checks for best tour
 void GA::evaluateTours(Adjacency& matrix) {
     double bestDistance = std::numeric_limits<double>::max();
     int bestTourIndex = 0;
 
-    for (int i = 0; i < tours.size(); ++i) {
+    int tourSize = tours.size();
+    for (int i = 0; i < tourSize; ++i) {
         path = tours[i];
         double currentDistance = tourDistance(matrix);
         
@@ -91,13 +98,14 @@ void GA::mutate() {
             int q = cities - 1;
             while (p < q) {
                 std::swap(tours[tourIndex][p], tours[tourIndex][q]);
-                ++q;
-                --p;
+                ++p;
+                --q;
             }
         }
     }
 }
 
+// gets the shortest tour
 std::string GA::getShortestPath(Adjacency& matrix, std::atomic<bool>& running) {
     initializeTours();
     path.clear();
@@ -126,13 +134,13 @@ std::string GA::getShortestPath(Adjacency& matrix, std::atomic<bool>& running) {
     for (int city : path) {
         result += std::to_string(city) + " ";
     }
-    result += std::to_string(path[0]); // add return to start
+    result += std::to_string(path[0]); // Add return to start
     
     running = false;
     return result;
 }
 
-// keeps track of time
+// time elapsed
 void GA::timer(std::atomic<bool>& running) {
     auto start = std::chrono::high_resolution_clock::now();
     
@@ -154,6 +162,7 @@ void GA::timer(std::atomic<bool>& running) {
               << totalElapsed.count() << " seconds" << std::endl << std::endl;
 }
 
+// returns sum of tour
 double GA::getTimeTraveled() {
     return totalTimeTraveled;
 }

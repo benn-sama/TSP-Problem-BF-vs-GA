@@ -21,8 +21,8 @@ class BF {
   public:
     BF(); // default constructor
     std::string getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>& running); // returns shortest path
-    void timer(std::atomic<bool>& running, std::atomic<bool>& timeout);
-    double getMinPath(); // returns OPT
+    void timer(std::atomic<bool>& running);
+    double getTotalTimeTraveled(); // returns OPT
 };
 
 #endif

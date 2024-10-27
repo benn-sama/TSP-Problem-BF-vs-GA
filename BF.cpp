@@ -69,7 +69,7 @@ std::string BF::getShortestPath(Adjacency& matrix, int cities, std::atomic<bool>
 }
 
 // elapsed time
-void BF::timer(std::atomic<bool>& running, std::atomic<bool>& timeout) {
+void BF::timer(std::atomic<bool>& running) {
   auto start = std::chrono::high_resolution_clock::now();
 
   while (running) {
@@ -79,11 +79,6 @@ void BF::timer(std::atomic<bool>& running, std::atomic<bool>& timeout) {
     // clear previous output and print elapsed time
     std::cout << "\33[2k\rElapsed time: " << std::fixed << std::setprecision(2) << elapsed.count() << " seconds" << std::flush;
 
-    if (elapsed.count() >= 300) {
-      timeout = true;
-      running = false;
-      break;
-    }
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
 
@@ -93,6 +88,6 @@ void BF::timer(std::atomic<bool>& running, std::atomic<bool>& timeout) {
   std::cout << "\33[2k\rTotal Execution Time: " << totalElapsed.count() << " seconds" << std::endl;
 }
 
-double BF::getMinPath() {
-    return this->minPath;
+double BF::getTotalTimeTraveled() {
+    return this->totalTimeTraveled;
 }

@@ -66,7 +66,7 @@ void createTestDataFile(const std::string& filename, int numCities) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(1.0, 100.0);
 
-    // Write upper triangular matrix data
+    // write upper triangular matrix data
     for (int i = 0; i < numCities - 1; ++i) {
         for (int j = i + 1; j < numCities; ++j) {
             outFile << std::fixed << std::setprecision(2) << dis(gen) << "\n";
@@ -153,13 +153,8 @@ void testGA() {
 }
 
 int main() {
-    try {
-        std::cout << "Starting GA Tests..." << std::endl;
-        testGA();
-        std::cout << "\nAll tests completed successfully." << std::endl;
-        return 0;
-    } catch (const std::exception& e) {
-        std::cerr << "Test failed with error: " << e.what() << std::endl;
-        return 1;
-    }
+      std::cout << "Starting GA Tests..." << std::endl;
+      testGA();
+      std::cout << "\nAll tests completed successfully." << std::endl;
+      return 0;
 }

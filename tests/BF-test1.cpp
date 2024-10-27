@@ -10,13 +10,12 @@ void testBF() {
   Adjacency matrix;
   std::ifstream fileStream("./distances.txt");
   std::atomic<bool> running(true);
-  std::atomic<bool> timeout(false);
   std::string shortestPath;
 
   std::cout << "Starting BF Tests" << std::endl << std::endl;
   // Capture running and timeout in the lambda
     std::cout << "here";
-  std::thread timerThread([&bruteForce, &running, &timeout]() { bruteForce.timer(running, timeout); });
+  std::thread timerThread([&bruteForce, &running]() { bruteForce.timer(running); });
 
   matrix.initializeArray(&fileStream);
 
@@ -26,7 +25,7 @@ void testBF() {
 
 
 
-  std::cout << "Shortest path: " << shortestPath << std::endl;
+  std::cout << std::endl <<"Shortest path: " << shortestPath << std::endl;
 }
 
 int main() {
