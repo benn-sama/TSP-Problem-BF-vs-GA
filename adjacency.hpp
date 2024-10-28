@@ -1,3 +1,13 @@
+/*
+ * File: adjacency.hpp, adjacency.cpp
+ * Description: This header file defines the Adjacency class, which represents
+ *              an adjacency matrix for storing travel times between cities.
+ * 
+ * Usage: The Adjacency class provides methods to initialize the matrix from a file,
+ *        return the travel time between specified cities, print all weights for testing,
+ *        and get the number of rows and columns in the matrix.
+ */
+
 #ifndef ADJACENCY_HPP
 #define ADJACENCY_HPP
 

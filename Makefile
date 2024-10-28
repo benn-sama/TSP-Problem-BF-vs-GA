@@ -1,7 +1,7 @@
 HEADERS = adjacency.hpp BF.hpp GA.hpp
 TEST_SOURCES = ./tests/adjacency-test1.cpp ./tests/BF-test1.cpp ./tests/GA-test1.cpp
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
-MAIN_OBJECTS = adjacency.o BF.o GA.o
+MAIN_OBJECTS = adjacency.o BF.o GA.o main.o
 TEST_TARGETS = $(TEST_SOURCES:.cpp=.out)
 MAIN_TARGET = main_executable
 

@@ -158,8 +158,11 @@ void GA::timer(std::atomic<bool>& running) {
     auto end = std::chrono::high_resolution_clock::now();
     auto totalElapsed = std::chrono::duration<double>(end - start);
     
-    std::cout << std::endl << "\33[2K\rTotal Execution Time: " 
-              << totalElapsed.count() << " seconds" << std::endl << std::endl;
+    this->totalElapsed = totalElapsed.count();
+}
+
+double GA::getTimeElapsed() {
+    return totalElapsed;
 }
 
 // returns sum of tour

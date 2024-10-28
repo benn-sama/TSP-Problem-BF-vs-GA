@@ -85,7 +85,10 @@ void BF::timer(std::atomic<bool>& running) {
   auto end = std::chrono::high_resolution_clock::now();
   std:: chrono::duration<double> totalElapsed = end - start;
 
-  std::cout << "\33[2k\rTotal Execution Time: " << totalElapsed.count() << " seconds" << std::endl;
+  this->elapsedTime = totalElapsed.count();
+}
+double BF::getTimeElapsed() {
+    return elapsedTime;
 }
 
 double BF::getTotalTimeTraveled() {

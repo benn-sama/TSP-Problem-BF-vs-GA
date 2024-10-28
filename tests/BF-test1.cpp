@@ -1,3 +1,14 @@
+/*
+ * File: BF-test1.cpp
+ * Description: This file contains a test function for the BF (Brute Force) class.
+ *              It initializes an adjacency matrix from a file and verifies
+ *              the correctness of the shortest path calculation using the Brute Force algorithm.
+ * 
+ * Usage: The testBF function reads travel times from "distances.txt", starts a timer,
+ *        and calculates the shortest path using the Brute Force algorithm. The results
+ *        are printed to the console.
+ */
+
 #include "BF.hpp"
 #include "adjacency.hpp"
 #include <atomic>

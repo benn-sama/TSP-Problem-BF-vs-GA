@@ -1,3 +1,14 @@
+/*
+ * File: adjacency-test1.cpp
+ * Description: This file contains a test function for the Adjacency class.
+ *              It initializes an adjacency matrix from a file and verifies
+ *              the correctness of the travel times between cities.
+ * 
+ * Usage: The testMatrixValues function reads travel times from "distances.txt"
+ *        and checks specific values to ensure they match expected results.
+ *        If any value does not match, an error message is printed.
+ */
+
 #include <iostream>
 #include <fstream>
 #include <stdexcept>  // Include for std::runtime_error
