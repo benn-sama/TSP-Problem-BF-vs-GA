@@ -129,10 +129,11 @@ std::string GA::getShortestPath(Adjacency& matrix, std::atomic<bool>& running) {
         ++generationCounter;
     }
     
-    // format result path
+    // format result path using standard for loop
     std::string result;
-    for (int city : path) {
-        result += std::to_string(city) + " ";
+    int pathSize = path.size();
+    for (int i = 0; i < pathSize; ++i) {
+        result += std::to_string(path[i]) + " ";
     }
     result += std::to_string(path[0]); // Add return to start
     
